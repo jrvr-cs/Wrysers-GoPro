@@ -18,5 +18,6 @@
 
 # Disclaimer
 
-*This mod has been forked from the offical Wrysers-GoPro mod and is now being updated by me. all credits goes to wryser for base mod. if you would like lualts fixed camera mod lmk*
+*This mod has been forked from the offical Wrysers-GoPro mod and all i did was make it work in the current update. all credits goes to wryser for base mod. if you would like lualts fixed camera mod lmk.*
+
 *This product is not affiliated with Another Axiom Inc. or its videogames Gorilla Tag and Orion Drift and is not endorsed or otherwise sponsored by Another Axiom. Portions of the materials contained herein are property of Another Axiom. ©2021 Another Axiom Inc.*
