@@ -14,6 +14,7 @@ namespace WrysersGoPro.ConfigManager
         public static bool Grabbable { get => grabbablecfg.Value; set => grabbablecfg.Value = value; }
         public static int camMode { get => camModecfg.Value; set => camModecfg.Value = value; }
         public static float fov { get => FOVcfg.Value; set => FOVcfg.Value = value; }
+        public static bool OGCamera {get => ogCameracfg.Value;}
 
         static ConfigEntry<bool> FOVLockcfg;
         static ConfigEntry<bool> ControlLockcfg;
@@ -22,6 +23,7 @@ namespace WrysersGoPro.ConfigManager
         static ConfigEntry<bool> grabbablecfg;
         static ConfigEntry<int> camModecfg;
         static ConfigEntry<float> FOVcfg;
+        static ConfigEntry<bool> ogCameracfg;
 
         static ConfigFile config;
 
@@ -35,6 +37,7 @@ namespace WrysersGoPro.ConfigManager
             grabbablecfg = config.Bind("General", "Grabbable?", false, "Change this to toggle if the camera is grabbable");
             camModecfg = config.Bind("General", "Camera Mode", 0, "This is what the mod uses to save the position of your camera when you start the game.");
             FOVcfg = config.Bind("General", "FOV", 60f, "This is your FOV.");
+            ogCameracfg = config.Bind("General", "OG Camera", false, "Wether to use the old blocky camera without the preview on top.");
         }
     }
 }

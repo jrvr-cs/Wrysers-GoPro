@@ -95,7 +95,8 @@ namespace WrysersGoPro
                     realgopro.SetActive(false);
                 }
                 shoulderCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
-                fakeCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
+                if (!GoProConfig.OGCamera)
+                    fakeCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
                 fov = GoProConfig.fov;
                 if (ControllerInputPoller.instance.leftControllerTriggerButton && ControllerInputPoller.instance.rightControllerTriggerButton && canLock)
                 {
@@ -428,7 +429,8 @@ namespace WrysersGoPro
             setCamMode = true;
             fov = GoProConfig.fov;
             shoulderCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
-            fakeCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
+            if (!GoProConfig.OGCamera)
+                fakeCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
             switch (GoProConfig.camMode)
             {
                 case 0:
@@ -495,12 +497,41 @@ namespace WrysersGoPro
             camFollower = GameObject.Find("Player Objects/Player VR Controller/GorillaPlayer/TurnParent/Main Camera/Camera Follower").transform;
             GoProManager.Controlsarelocked = GoProConfig.ControlLock;
             GoProManager.FOVislock = GoProConfig.FOVLock;
+
             Stream str = Assembly.GetExecutingAssembly().GetManifestResourceStream("WrysersGoPro.Assets.gopro");
             AssetBundle bundle = AssetBundle.LoadFromStream(str);
             gopro = bundle.LoadAsset<GameObject>("Camera");
-            realgopro = Instantiate(gopro);
-            Debug.Log("GOPRO INSTIATED");
-            realgopro.transform.Find("CamGrab").AddComponent<Grabbable>();
+
+            if (!GoProConfig.OGCamera)
+            {
+                realgopro = Instantiate(gopro);
+                Debug.Log("GOPRO INSTIATED");
+                realgopro.transform.Find("CamGrab").AddComponent<Grabbable>();
+            }
+            else
+            {
+                realgopro = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                realgopro.name = "Camera";
+                GameObject cameralens = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                cameralens.transform.GetComponent<CapsuleCollider>().enabled = false;
+                realgopro.transform.GetComponent<BoxCollider>().enabled = false;
+                realgopro.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                cameralens.transform.SetParent(realgopro.transform, false);
+                cameralens.transform.localScale = new Vector3(0.3f, 0.5f, 0.3f);
+                cameralens.transform.localPosition = new Vector3(0f, 0f, 0.05f);
+                cameralens.transform.localRotation = Quaternion.Euler(0f, 0.0f, 90.0f);
+
+                realgopro.GetComponent<Renderer>().material.shader = Shader.Find("GorillaTag/UberShader");
+
+                realgopro.GetComponent<Renderer>().material.color = Color.black;
+
+                cameralens.GetComponent<Renderer>().material.shader = Shader.Find("GorillaTag/UberShader");
+                cameralens.GetComponent<Renderer>().material.color = Color.white;
+
+                Debug.Log("GOPRO MADE");
+            }
+
+
             Rhand = GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/rig/hand.R");
             Lhand = GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/rig/hand.L");
             var go = GameObject.Find("Player Objects");
@@ -528,7 +559,8 @@ namespace WrysersGoPro
             cam.transform.localRotation = Quaternion.Euler(0f, 90f, 90f);
             realgopro.transform.localPosition = new Vector3(0f, 0f, 0f);
             realgopro.transform.localRotation = Quaternion.Euler(0, 90, 0);
-            fakeCamera = realgopro.transform.GetChild(1).GetComponent<Camera>();
+            if (!GoProConfig.OGCamera)
+                fakeCamera = realgopro.transform.GetChild(1).GetComponent<Camera>();
             stinkymonkeyface = GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/rig/head");
             // Stream strr = Assembly.GetExecutingAssembly().GetManifestResourceStream("WrysersGoPro.Assets.gopromenu");
             // AssetBundle bundlee = AssetBundle.LoadFromStream(strr);
