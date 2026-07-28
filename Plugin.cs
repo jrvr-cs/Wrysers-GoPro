@@ -1,18 +1,19 @@
 ﻿using BepInEx;
-using System;
-using UnityEngine;
-using UnityEngine.XR;
-using System.IO;
-using System.Reflection;
-using HarmonyLib;
+using GorillaLocomotion;
 using GorillaNetworking;
+using HarmonyLib;
+using System;
+using System.IO;
+using System.Net.Sockets;
+using System.Reflection;
+using Unity.Cinemachine;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using UnityEngine.XR;
+using Valve.VR;
 using WrysersGoPro.ConfigManager;
 using WrysersGoPro.Core;
-using Valve.VR;
-using UnityEngine.EventSystems;
-using GorillaLocomotion;
-using UnityEngine.UI;
-using Unity.Cinemachine;
 
 namespace WrysersGoPro
 {
@@ -64,6 +65,7 @@ namespace WrysersGoPro
         bool lPressing = false;
         bool rPressing = false;
         bool justPressedFP = false;
+        bool canLock = false;
 
         void Awake()
         {
@@ -95,6 +97,15 @@ namespace WrysersGoPro
                 shoulderCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
                 fakeCamera.fieldOfView = fov = Mathf.Clamp(fov, 5, 140);
                 fov = GoProConfig.fov;
+                if (ControllerInputPoller.instance.leftControllerTriggerButton && ControllerInputPoller.instance.rightControllerTriggerButton && canLock)
+                {
+                    GoProConfig.FOVLock = !GoProConfig.FOVLock;
+                    canLock = false;
+                }
+                else if (!ControllerInputPoller.instance.leftControllerTriggerButton && !ControllerInputPoller.instance.rightControllerTriggerButton && !canLock)
+                {
+                    canLock = true;
+                } //lock fov stuff stolen from lault lol
                 if (!GoProConfig.ControlLock)
                 {
                     GetInputs();
