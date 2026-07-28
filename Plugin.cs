@@ -519,20 +519,21 @@ namespace WrysersGoPro
             realgopro.transform.localRotation = Quaternion.Euler(0, 90, 0);
             fakeCamera = realgopro.transform.GetChild(1).GetComponent<Camera>();
             stinkymonkeyface = GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/rig/head");
-            Stream strr = Assembly.GetExecutingAssembly().GetManifestResourceStream("WrysersGoPro.Assets.gopromenu");
-            AssetBundle bundlee = AssetBundle.LoadFromStream(strr);
-            GameObject asset = bundlee.LoadAsset<GameObject>("GoProMenu");
-            GameObject board = Instantiate(asset);
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/ControlLock").AddComponent<ControlLock>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/FOVLock").AddComponent<FOVLock>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/FaceCam").AddComponent<FaceCam>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/FollowCam").AddComponent<FollowPlayer>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/TPC").AddComponent<ThirdPerson>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/Grabbable").AddComponent<GrabbableButton>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/SmoothFP").AddComponent<SmoothFP>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/Stick To Player").AddComponent<StickToPlayer>();
-            GameObject.Find("GoProMenu(Clone)/Canvas/Settings/HideCam").AddComponent<HideCamera>();
+            // Stream strr = Assembly.GetExecutingAssembly().GetManifestResourceStream("WrysersGoPro.Assets.gopromenu");
+            // AssetBundle bundlee = AssetBundle.LoadFromStream(strr);
+            // GameObject asset = bundlee.LoadAsset<GameObject>("GoProMenu");
+            // GameObject board = Instantiate(asset);
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/ControlLock").AddComponent<ControlLock>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/FOVLock").AddComponent<FOVLock>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/FaceCam").AddComponent<FaceCam>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/FollowCam").AddComponent<FollowPlayer>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/TPC").AddComponent<ThirdPerson>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/Grabbable").AddComponent<GrabbableButton>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/SmoothFP").AddComponent<SmoothFP>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/Stick To Player").AddComponent<StickToPlayer>();
+            // GameObject.Find("GoProMenu(Clone)/Canvas/Settings/HideCam").AddComponent<HideCamera>();
             //GorillaMenu.Utils.ModUtils.AddMod("Wrysers Go Pro", board);
+            //removed menu since GorillaMenu isnt required and needed, plus text errors
             initialized = true;
         }
     }
